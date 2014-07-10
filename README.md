@@ -7,11 +7,13 @@ Quick start
 1. Install `pip install -e git://github.com/myarik/django-cbrcours.git#egg=cbrcours`
 
 2. Add "myblog" to INSTALLED_APPS:
+ ```
   INSTALLED_APPS = {
     ...
     'cbrcours'
   }
-
+ ```
+  
 3. Run `python manage.py syncdb` to create cbrcour's models or `python manage.py migrate`.
 
 4. Get cours:
