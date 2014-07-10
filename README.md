@@ -25,4 +25,3 @@ Quick start
     from cbrcurrencies import conver_price
     conver_price(526, 'EUR')
     ``` 
-
