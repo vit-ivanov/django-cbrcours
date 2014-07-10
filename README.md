@@ -4,7 +4,7 @@ CBR course (cbr.ru)
 
 Quick start
 -----------
-1.
+1. Install `pip install -e git://github.com/myarik/django-cbrcours.git#egg=cbrcours`
 
 2. Add "myblog" to INSTALLED_APPS:
   INSTALLED_APPS = {
