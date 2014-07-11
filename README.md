@@ -18,12 +18,12 @@ Quick start
 
 4. Get cours:
     ```
-    from cbrcurrencies import get_course
+    from cbrcours import get_course
     get_course('USD')
     ```
 
 5.  Convert price:
     ```
-    from cbrcurrencies import conver_price
+    from cbrcours import conver_price
     conver_price(526, 'EUR')
     ``` 
