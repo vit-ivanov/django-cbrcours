@@ -46,9 +46,7 @@ class CBR_COURSE(object):
             for valute in cbr['ValCurs']['Valute']:
                 valutes_dict[valute['CharCode']] = {
                     'name': valute['Name'],
-                    'value': Decimal(
-                        valute['Value'].replace(',', '.')).quantize(
-                            Decimal('.01')),
+                    'value': Decimal(valute['Value'].replace(',', '.')).quantize(Decimal("0.0001")),
                     'nominal': int(valute['Nominal'])
                 }
             return valutes_dict

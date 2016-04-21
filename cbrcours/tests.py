@@ -78,14 +78,13 @@ class StoragesTest(TestCase):
         requests.get = MagicMock(side_effect=mock_get_request)
         self.assertEquals(
             cbr.get('USD').get('value'),
-            Decimal('33.84').quantize(Decimal('.01'))
+            Decimal('33.8353').quantize(Decimal('.0001'))
         )
-        self.assertEquals(
-            Currency.objects.filter(code='USD')[0].value,
-            Decimal(33.84).quantize(Decimal('.01'))
-        )
+        self.assertEquals(Currency.objects.filter(code='USD')[0].value,
+                          Decimal(33.8353).quantize(Decimal("0.0001")))
+
         self.assertEquals(
             cbr.calculate_price(100, 'USD'),
-            Decimal(3384.00).quantize(Decimal('.01'))
+            Decimal(3383.53).quantize(Decimal('.0001'))
         )
 
