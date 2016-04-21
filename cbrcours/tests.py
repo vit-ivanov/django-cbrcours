@@ -16,11 +16,18 @@ import codecs
 main_dict = {
     u'USD': {
         'name': u'Доллар США',
-        'value': Decimal(34.07)
+        'value': Decimal(34.07),
+        'nominal': 1,
     },
     u'EUR': {
         'name': u'Евро',
-        'value': Decimal(46.41)
+        'value': Decimal(46.41),
+        'nominal': 1,
+    },
+    u'HUF': {
+        'name': u'Венгерских форинтов',
+        'value': Decimal(14.8596),
+        'nominal': 100,
     },
 }
 
@@ -48,14 +55,15 @@ class StoragesTest(TestCase):
     def test_mysql_storage(self):
         storage = MysqlCBRStorage()
         storage.set_to_storage(main_dict)
-        self.assertEquals(Currency.objects.all().count(), 2)
+        self.assertEquals(Currency.objects.all().count(), 3)
         self.assertEquals(
             storage.get_from_storage('USD').get('value'),
             Decimal(34.07).quantize(Decimal('.01'))
         )
         main_dict['USD'] = {
             'name': u'Доллар США',
-            'value': Decimal(30.07)
+            'value': Decimal(30.07),
+            'nominal': 1
         }
         storage.set_to_storage(main_dict)
         self.assertEquals(
