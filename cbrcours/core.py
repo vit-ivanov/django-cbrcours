@@ -83,5 +83,5 @@ class CBR_COURSE(object):
     def calculate_price(self, price, currency):
         price = Decimal(price)
         currency = self.get(currency)
-        price = price * currency.get('value') / currency.get('nominal')
+        price = price * currency.get('value') / (currency.get('nominal') or 1)
         return price.quantize(Decimal("0.01"), rounding=ROUND_UP)

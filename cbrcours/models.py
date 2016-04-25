@@ -34,7 +34,7 @@ class Currency(models.Model):
     name = models.CharField(_('name'), max_length=100)
     value = models.DecimalField(_('value'), max_digits=30, decimal_places=10,
                                 help_text=_('Curs Value'))
-    nominal = models.PositiveSmallIntegerField(_('Nominal'))
+    nominal = models.PositiveSmallIntegerField(_('Nominal'), default=1)
 
     class Meta:
         ordering = ('name', )
