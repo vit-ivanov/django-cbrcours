@@ -21,11 +21,11 @@ class CBR_COURSE(object):
     RETRY_TIMEOUT = getattr(settings, "CBR_RETRY_TIMEOUT", 0.2)
     TIMEOUT = getattr(settings, "CBR_TIMEOUT", 5)
 
-    CBR_URL = 'http://www.cbr.ru/scripts/XML_daily.asp'
+    CBR_URL = 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=%s'
 
     STORAGE = MixinCBRStorage()
 
-    def get_cbr_currency(self):
+    def get_cbr_currency(self, date=timezone.now):
         '''
         Returns:
             None if no responce from server
@@ -35,7 +35,8 @@ class CBR_COURSE(object):
             self.CBR_URL,
             self.RETRIES,
             self.RETRY_TIMEOUT,
-            self.TIMEOUT
+            self.TIMEOUT,
+            date
         )
         if response:
             response.encoding = 'cp1251'
@@ -52,13 +53,15 @@ class CBR_COURSE(object):
             return valutes_dict
         return
 
-    def check_valid_answer(self):
+    def check_valid_answer(self, date=timezone.now):
         """
             Check if need update
         """
+        if callable(date):
+            date = date()
         try:
             obj = CurrencyLastUpdate.object.get(pk=1)
-            delta = timezone.now() - obj.last_update
+            delta = date - obj.last_update
             if delta < self.deltaHours:
                 return False
         except CurrencyLastUpdate.DoesNotExist:
@@ -72,11 +75,11 @@ class CBR_COURSE(object):
             data = self.STORAGE.get_from_storage(code)
         return data.get('result')
 
-    def update_data(self):
+    def update_data(self, date=timezone.now):
         """
             Update DATA
         """
-        idict = self.get_cbr_currency()
+        idict = self.get_cbr_currency(date=date)
         if idict:
             self.STORAGE.set_to_storage(idict)
 
