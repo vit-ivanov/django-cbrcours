@@ -39,10 +39,7 @@ class CBR_COURSE(object):
             date
         )
         if response:
-            response.encoding = 'cp1251'
-            text = response.text.encode('utf-8').replace(
-                'windows-1251', 'utf-8')
-            cbr = parse(text)
+            cbr = parse(response.text)
             valutes_dict = {}
             for valute in cbr['ValCurs']['Valute']:
                 valutes_dict[valute['CharCode']] = {
