@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='django-cbrcours',
     version='0.1',
-    packages=['cbrcours'],
+    packages=find_packages(),
     install_requires=['requests', 'xmltodict'],
     include_package_data=True,
     license='BSD License',
